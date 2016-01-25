@@ -11,7 +11,6 @@ function HU.AddFileFromHUList()
 	end
 end
 
--- 根据新的文件生成函数的代码
 function HU.BuildNewCode(FilePath, LuaPath)
 	io.input(FilePath)
 	local NewCode = io.read("*all")
@@ -128,11 +127,12 @@ function HU.BuildNewCode(FilePath, LuaPath)
 	if type(NewFunction) == "function" then 
 	  	return loadstring(chunk)()
 	elseif HU.FailNotify then
-	  	HU.FailNotify(FilePath.."有语法错误")  	
+	  	HU.FailNotify(FilePath.."has syntas error")  	
 	  	HU.OldCode[FilePath] = ""
 	end
 end
--- 更新某文件里的所有的函数
+
+
 function HU.UpdateAllFunction(FilePath, NewObject)
 	local OldObject = package.loaded[FilePath]
 	for ElementName, Element in pairs(NewObject) do
@@ -146,7 +146,7 @@ function HU.UpdateAllFunction(FilePath, NewObject)
 		end
 	end
 end
--- 更新目标函数
+
 function HU.UpdateTargetFunction(FilePath, NewObject, FunctionName)
 	local OldObject = package.loaded[FilePath]
 	local OldFunction = OldObject[FunctionName]
@@ -157,7 +157,7 @@ function HU.UpdateTargetFunction(FilePath, NewObject, FunctionName)
 		HU.ChangedFuncList[#HU.ChangedFuncList + 1] = {OldFunc, NewFunc, FunctionName, OldObject}
 	end
 end
--- 设置新函数的环境变量与旧函数一致
+
 function HU.CopyFunctionEnv(OldFunction, NewFunction)
 	setfenv(NewFunction, getfenv(OldFunction))
 end
@@ -178,7 +178,6 @@ function HU.BuildNewFunc(OldObject, NewObject, FunctionName)
 	return OldFunction, NewFunction
 end
 
--- 替换upvalue
 function HU.UpdateUpvalue(OldFunction, NewFunction)
 	local Visited = {}
 	function fun(OldFunction, NewFunction)
@@ -215,7 +214,6 @@ function HU.UpdateOneFunction(FilePath, NewObject)
 	HU.ChangedFuncList[#HU.ChangedFuncList + 1] = {OldObject, NewObject}
 end
 
--- 更新逻辑的主函数
 function HU.HotUpdateCode()
 	for LuaPath, SysPath in pairs(HU.HUMap) do
 		local OldObject = package.loaded[LuaPath]
@@ -232,7 +230,7 @@ function HU.HotUpdateCode()
 				end
 			else
 				if HU.FailNotify then
-					HU.FailNotify(LuaPath.."热更失败，返回的既不是函数也不是表")
+					HU.FailNotify(LuaPath.."doesn't return table or function")
 				end
 			end
 		end
@@ -283,7 +281,7 @@ function HU.Travel_G()
 		HU.UpdateRegistry(v[1], v[2])
 	end
 end
--- 初始化文件的路径映射表
+
 function HU.InitFileMap(RootPath)
 	for _, rootpath in pairs(RootPath) do
 		local file = io.popen("dir /S/B /A:A "..rootpath)
@@ -302,7 +300,7 @@ function HU.InitFileMap(RootPath)
 	    file:close()
 	end
 end
--- 初始化
+
 function HU.Init(RootPath, UpdateListFile, FailNotify)
 	HU.UpdateListFile = UpdateListFile
 	HU.HUMap = {}
@@ -316,31 +314,6 @@ end
 function HU.Update()
 	HU.AddFileFromHUList()
 	HU.HotUpdateCode()
-end
-
-local function FindRootPath()
-	local file = io.popen("echo %cd%")
-	local str = file:read("*l")
-	local basedir 
-	if string.find(str,"Build\\Windows\\GameSrc\\Shell\\.*$") then
-		basedir = string.gsub(str,"Build\\Windows\\GameSrc\\Shell\\.*$", "")
-	else
-		basedir = string.gsub(str,"[^\\]+$","")
-		HU.FailNotify = nil
-	end
-	file:close()
-	return {basedir.."resource\\artres\\media\\video"}
-end
-
-HU.Init(FindRootPath(), "debugger.hotupdatelist", STRING_UTIL.AddMessageTipByMsg)
-
-HU.LastTime = os.clock()
-function HU.Ticker()
-	local nowtime = os.clock() 
-	if os.clock() - HU.LastTime > 3 then
-		HU.LastTime = nowtime
-		HU.Update()
-	end
 end
 
 return HU

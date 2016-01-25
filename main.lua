@@ -1,7 +1,8 @@
-local hotupdate = require "hotupdate"
+local hotupdate = require "luahotupdate"
 local test = require "test"
 
-hotupdate.Init({"D:\\fantasy\\test\\src"}, print)
+
+hotupdate.Init({"D:\\ldt\\workspace\\hotimplement\\src"}, "hotupdatelist")
 local run_times = 0
 local last_time = os.clock()
 
@@ -13,7 +14,7 @@ while true do
     last_time = now_time
     run_times = run_times + 1
     
-    hotupdate.Run()
+    hotupdate.Update()
     test.func()
     
     if run_times >= 10 then

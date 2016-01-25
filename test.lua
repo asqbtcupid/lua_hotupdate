@@ -1,10 +1,14 @@
 local test = {}
-local function f()
-print("shenme gui...")
+local times = 0
+
+local function upvalue_func()
+  print("upvalue func")
 end
+
 function test.func()
-  print("before haha niu bi huai le")
-  f()
+  times = times + 1
+  print("func", times)
+  upvalue_func()
 end
 
 return test
