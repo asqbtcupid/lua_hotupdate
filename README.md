@@ -8,3 +8,8 @@ Update每运行一次就对hotupdatelist里面的文件进行热更新。
 
 限Windows平台使用
 详细配置请看[lua closure热更新配置](http://asqbtcupid.github.io/hotupdte-implement/)
+
+
+
+
+![例子动图]({{site.baseurl}}/images/hotupdateexample.gif)
