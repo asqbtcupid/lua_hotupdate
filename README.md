@@ -12,4 +12,4 @@ Update每运行一次就对hotupdatelist里面的文件进行热更新。
 
 
 
-![例子动图]({{site.baseurl}}/images/hotupdateexample.gif)
+![例子动图](https://raw.githubusercontent.com/asqbtcupid/asqbtcupid.github.com/master/images/hotupdateexample.gif)
