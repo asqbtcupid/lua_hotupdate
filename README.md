@@ -6,7 +6,7 @@ Init负责初始化，RootPath是你的lua文件目录，该目录及子目录�
 
 Update每运行一次就对UpdateListFile里面的文件进行热更新，只更新函数，不更新数据。
 
-~限Windows平台使用
+~限Windows平台使用, 详细配置[lua热更新](https://asqbtcupid.github.io/hotupdte-implement/)
 
 
 
