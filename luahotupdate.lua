@@ -72,6 +72,9 @@ function HU.InitFakeTable()
 	function meta.__eq() return meta.__call() end
 	function meta.__lt() return meta.__call() end
 	function meta.__le() return meta.__call() end
+	function meta.__len() return meta.__call() end
+		-- body
+	end
 	return FakeT
 end
 
