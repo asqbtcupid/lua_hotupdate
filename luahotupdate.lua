@@ -230,7 +230,7 @@ end
 function HU.ResetENV(object, name, From, Deepth)
 	local visited = {}
 	local function f(object, name)
-		if visited[object] then return end
+		if not object or visited[object] then return end
 		visited[object] = true
 		if type(object) == "function" then
 			HU.DebugNofity(Deepth.."HU.ResetENV", name, "  from:"..From)
