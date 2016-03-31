@@ -160,7 +160,7 @@ function HU.Travel_G()
 	local visited = {}
 	visited[HU] = true
 	local function f(t)
-		if not t or visited[t] or HU.Protection[t] then return end
+		if (type(t) ~= "function" and type(t) ~= "table") or visited[t] or HU.Protection[t] then return end
 		visited[t] = true
 		if type(t) == "function" then
 		  	for i = 1, math.huge do
