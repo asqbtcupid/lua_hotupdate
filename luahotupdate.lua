@@ -53,6 +53,12 @@ function HU.InitFakeTable()
 			return EmptyFunc
 		elseif k == "require" then
 			return require
+		elseif k == "table" then
+			return table
+		elseif k == "string" then
+			return string
+		elseif k == "math" then
+			return math
 		else
 			local FakeTable = FakeT()
 			rawset(t, k, FakeTable)
