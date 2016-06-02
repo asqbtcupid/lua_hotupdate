@@ -91,6 +91,9 @@ function HU.InitProtection()
 	HU.Protection[require] = true
 	HU.Protection[HU] = true
 	HU.Protection[HU.Meta] = true
+	HU.Protection[math] = true
+	HU.Protection[string] = true
+	HU.Protection[table] = true
 end
 
 function HU.AddFileFromHUList()
