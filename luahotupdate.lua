@@ -190,6 +190,7 @@ function HU.Travel_G()
 			end
 		end
 	end
+	
 	f(_G)
 	local registryTable = debug.getregistry()
 	for _, funcs in ipairs(HU.ChangedFuncList) do
