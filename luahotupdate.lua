@@ -175,6 +175,13 @@ function HU.Travel_G()
 		  	for i = 1, math.huge do
 				local name, value = debug.getupvalue(t, i)
 				if not name then break end
+				if type(value) == "function" then
+					for _, funcs in ipairs(HU.ChangedFuncList) do
+						if value == funcs[1] then
+							debug.setupvalue(t, i, funcs[2])
+						end
+					end
+				end
 				f(value)
 			end
 		elseif type(t) == "table" then
@@ -234,6 +241,10 @@ function HU.HotUpdateCode(LuaPath, SysPath)
 			end
 			collectgarbage("collect")
 		end
+	elseif HU.OldCode[SysPath] == nil then 
+		io.input(SysPath)
+		HU.OldCode[SysPath] = io.read("*all")
+		io.input():close()
 	end
 end
 
