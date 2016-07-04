@@ -186,14 +186,24 @@ function HU.Travel_G()
 			end
 		elseif type(t) == "table" then
 			f(debug.getmetatable(t))
+			local changeIndexs = {}
 			for k,v in pairs(t) do
 				f(k); f(v);
-				if type(v) == "function" or type(k) == "function" then
+				if type(v) == "function" then
 					for _, funcs in ipairs(HU.ChangedFuncList) do
 						if v == funcs[1] then t[k] = funcs[2] end
-						if k == funcs[1] then t[funcs[2]] = t[k]; t[k] = nil end
 					end
 				end
+				if type(k) == "function" then
+					for index, funcs in ipairs(HU.ChangedFuncList) do
+						if k == funcs[1] then changeIndexs[#changeIndexs+1] = index end
+					end
+				end
+			end
+			for _, index in ipairs(changeIndexs) do
+				local funcs = HU.ChangedFuncList[index]
+				t[funcs[2]] = t[funcs[1]] 
+				t[funcs[1]] = nil
 			end
 		end
 	end
