@@ -7,8 +7,40 @@ function HU.DebugNofity(...)
 	if HU.DebugNofityFunc then HU.DebugNofityFunc(...) end
 end
 
+local function GetWorkingDir()
+	if HU.WorkingDir == nil then
+	    local p = io.popen("echo %cd%")
+	    if p then
+	        HU.WorkingDir = p:read("*l").."\\"
+	        p:close()
+	    end
+	end
+	return HU.WorkingDir
+end
+
+local function Normalize(path)
+	path = path:gsub("/","\\") 
+	if path:find(":") == nil then
+		path = GetWorkingDir()..path 
+	end
+	local pathLen = #path 
+	if path:sub(pathLen, pathLen) == "\\" then
+		 path = path:sub(1, pathLen - 1)
+	end
+	 
+    local parts = { }
+    for w in path:gmatch("[^\\]+") do
+        if     w == ".." and #parts ~=0 then table.remove(parts)
+        elseif w ~= "."  then table.insert(parts, w)
+        end
+    end
+    return table.concat(parts, "\\")
+end
+
 function HU.InitFileMap(RootPath)
 	for _, rootpath in pairs(RootPath) do
+		rootpath = Normalize(rootpath)
+		print(rootpath)
 		local file = io.popen("dir /S/B /A:A "..rootpath)
 		io.input(file)
 		for line in io.lines() do
