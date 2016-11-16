@@ -235,13 +235,8 @@ function HU.Travel_G()
 	
 	f(_G)
 	local registryTable = debug.getregistry()
-	for _, funcs in ipairs(HU.ChangedFuncList) do
-		for k, v in pairs(registryTable) do
-			if v == funcs[1] then
-				registryTable[k] = funcs[2]
-			end
-		end
-	end
+	f(registryTable)
+	
 	for _, funcs in ipairs(HU.ChangedFuncList) do
 		if funcs[3] == "HUDebug" then funcs[4]:HUDebug() end
 	end
