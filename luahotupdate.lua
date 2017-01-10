@@ -68,6 +68,9 @@ function HU.InitFakeTable()
 		HU.MetaMap[t] = metaT 
 		return t
 	end
+	local function getmetatable(t, metaT)
+		return setmetatable({}, t)
+	end
 	local function require(LuaPath)
 		if not HU.RequireMap[LuaPath] then
 			local FakeTable = FakeT()
