@@ -7,7 +7,7 @@ Init负责初始化，RootPath是你的lua文件目录，该目录及子目录�
 Update每运行一次就对UpdateListFile里面的文件进行热更新，只更新函数，不更新数据。
 
 ~限Windows平台+lua5.1使用, 详细配置[lua热更新](http://asqbtcupid.github.io/hotupdte-implement/)
-
+[5.3的版本 用在了虚幻4上](https://github.com/asqbtcupid/unreal.lua/blob/master/Plugins/UnrealLua/LuaSource/luahotupdate.lua)
 
 API:
 - Init(UpdateListFile, RootPath, [, FailNotify, ENV])
@@ -20,6 +20,3 @@ function Update() is responsible for doing hotreload action.It update all functi
 only works on windows platform and lua5.1. thanks~
 
 ![例子动图](https://raw.githubusercontent.com/asqbtcupid/asqbtcupid.github.com/master/images/hotupdate-example.gif)
-
-
-[5.3的版本 用在了虚幻4上](https://github.com/asqbtcupid/unreal.lua/blob/master/Plugins/UnrealLua/LuaSource/luahotupdate.lua)
