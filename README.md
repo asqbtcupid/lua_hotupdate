@@ -20,3 +20,6 @@ function Update() is responsible for doing hotreload action.It update all functi
 only works on windows platform and lua5.1. thanks~
 
 ![例子动图](https://raw.githubusercontent.com/asqbtcupid/asqbtcupid.github.com/master/images/hotupdate-example.gif)
+
+
+[5.3的版本 用在了虚幻4上](https://github.com/asqbtcupid/unreal.lua/blob/master/Plugins/UnrealLua/LuaSource/luahotupdate.lua)
